@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 public class ProductController {
+
     @GetMapping("/")
     public String HomePage(){
         return "Welcome Home Page!";
     }
+
+    @PostMapping("add")
+    public String AddProduct(){ return "Welcome to Add Product page!"; }
 }
