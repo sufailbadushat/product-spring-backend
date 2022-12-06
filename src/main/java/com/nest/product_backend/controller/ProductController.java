@@ -3,11 +3,9 @@ package com.nest.product_backend.controller;
 import com.nest.product_backend.dao.ProductDao;
 import com.nest.product_backend.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 
@@ -25,6 +23,8 @@ public class ProductController {
         return "Welcome Home Page!";
     }
 
+
+    @CrossOrigin(origins = "*")
     @PostMapping(path = "/add", produces = "application/json", consumes = "application/json")
     public String AddProduct(@RequestBody Product p){
         System.out.println(p.getProductName().toString());
@@ -33,14 +33,19 @@ public class ProductController {
         return "Product added successfully";
     }
 
-    @PostMapping("search")
-    public String SearchProduct(){ return "Welcome to Search Product page!"; }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/viewAll")
+    public List<Product> ViewAllProduct()
+    {
+        return (List<Product>) productDao.findAll();
+    }
 
     @PostMapping("edit")
     public String EditProduct(){ return "Welcome to Edit Product page!"; }
 
-    @GetMapping("viewAll")
-    public String ViewAllProduct(){ return "Welcome to View All Product page!"; }
+    @PostMapping("search")
+    public String SearchProduct(){ return "Welcome to Search Product page!"; }
 
     @PostMapping("delete")
     public String DeleteProduct(){ return "Welcome to Delete Product page!"; }
